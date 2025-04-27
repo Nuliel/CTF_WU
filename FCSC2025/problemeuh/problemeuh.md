@@ -43,10 +43,16 @@ $$\begin{cases}
 
 ## Two first equations
 
-We multiply the first equation by $159$: $$\begin{cases}
+We multiply the first equation by $159$: 
+
+$$\begin{cases}
         159 a = 159 \cdot 487 c \\
         159 a = 485 b
-    \end{cases}$$ So we have $$\begin{aligned}
+\end{cases}$$ 
+
+So we have 
+
+$$\begin{aligned}
     159 \cdot 487 c = 485 b
 \end{aligned}$$
 
@@ -93,7 +99,9 @@ We have an equation of degree two like this one: $$\begin{aligned}
     & A = 3 \\
     & B = -1 \\
     & C = -2 \cdot 7 \cdot 23 \cdot 159 \cdot 487^2 k'
-\end{aligned}$$ So we can compute the discriminant
+\end{aligned}$$ 
+
+So we can compute the discriminant
 
 $$\begin{aligned}
     \Delta  &= B^2 - 4 A C \\
@@ -105,9 +113,13 @@ We know that there exists a solution (because this challenge can be
 solved), so $\Delta$ must be positive, and must be a square number.
 Recall that $k'$ is also a square number.
 
-This equation is of form $$\begin{aligned}
+This equation is of form 
+
+$$\begin{aligned}
     X^2 - D \cdot Y^2 = 1
-\end{aligned}$$ with $X = \sqrt{\Delta}$ and $Y = \sqrt{k'}$ so it's a
+\end{aligned}$$ 
+
+with $X = \sqrt{\Delta}$ and $Y = \sqrt{k'}$ so it's a
 Pell-Fermat equation. We can use sympy to solve the Pell-Fermat equation
 and get the flag:
 
