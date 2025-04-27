@@ -1,0 +1,125 @@
+\documentclass[]{article}
+
+\usepackage{amsmath}
+\usepackage{minted}
+\usepackage{xcolor}
+
+\setlength\parindent{0pt}
+
+\definecolor{LightGray}{gray}{0.9}
+\setminted[python]{
+frame=lines,
+framesep=2mm,
+baselinestretch=1.2,
+bgcolor=LightGray,
+fontsize=\footnotesize,
+linenos
+}
+
+\title{Write-up Problèmeuh}
+\author{Nuliel}
+\date{}
+
+\begin{document}
+\maketitle
+Problèmeuh is a crypto challenge from FCSC 2025. The goal is to solve a system of equations, with both linear and quadratic equations.
+
+\section{Problem statement}
+
+\begin{quote}
+    Here is a nice and small system to solve.
+\end{quote}
+
+And the python script attached:
+
+\inputminted{python}{problemeuh.py}
+
+\section{Solution}
+
+We have this system of equations:
+
+\begin{equation*}
+    \begin{cases}
+        a = 487 c \\
+        159 a = 485 b \\
+        x^2 = a + b \\
+        y (3 y - 1) = 2 b
+    \end{cases}
+\end{equation*}
+
+\subsection{Two first equations}
+
+We multiply the first equation by $159$:
+\begin{equation*}
+    \begin{cases}
+        159 a = 159 \cdot 487 c \\
+        159 a = 485 b
+    \end{cases}
+\end{equation*}
+So we have 
+\begin{align*}
+    159 \cdot 487 c = 485 b
+\end{align*}
+
+As $159$, $485$ and $487$ are coprime, we must have
+\begin{itemize}
+    \item 159 and 487 in the factors of b
+    \item 485 in the factors of c
+\end{itemize}
+From this fact, we can express $a$, $b$ and $c$ in function of only one unknown $k$:
+
+\begin{equation*}
+    \begin{cases}
+        b = 159 \cdot 487 k \\
+        c = 485 k \\
+        a = 487 \cdot 485 k
+    \end{cases}
+\end{equation*}
+
+\subsection{Third equation}
+
+We can replace, develop and factor in this equation:
+
+\begin{align*}
+    x^2 &= a + b \\
+        &= k \cdot (487 \cdot 485 + 159 \cdot 487) \\
+        &= k \cdot (2^2 \cdot 7 \cdot 23 \cdot 487)
+\end{align*}
+
+$x^2$ is obviously a square number, so each prime factor must appear at least two times (precisely an even number of times). To compensate, $k$ must contain the factors 7, 23 and 487, so $k = 7 \cdot 23 \cdot 487 k'$, with $k'$ a square number.
+
+\subsection{Last equation}
+
+\begin{align*}
+    y (3y - 1)  &= 2b \\
+    3y^2 - y    &= 2 \cdot 159 \cdot 487 k \\
+    3y^2 - y    &= 2 \cdot 7 \cdot 23 \cdot 159 \cdot 487^2 k'
+\end{align*}
+
+We have an equation of degree two like this one:
+\begin{align*}
+    & Ay^2 + By + C = 0 \\
+    & A = 3 \\
+    & B = -1 \\
+    & C = -2 \cdot 7 \cdot 23 \cdot 159 \cdot 487^2 k'
+\end{align*}
+So we can compute the discriminant
+
+\begin{align*}
+    \Delta  &= B^2 - 4 A C \\
+            &= (-1)^2 - 4 \cdot 3 \cdot (-2) \cdot 7 \cdot 23 \cdot 159 \cdot 487^2 k' \\
+            &= 1 + (2)^3 \cdot 3 \cdot 7 \cdot 23 \cdot 159 \cdot 487^2 k'\\
+\end{align*}
+
+We know that there exists a solution (because this challenge can be solved), so $\Delta$ must be positive, and must be a square number. Recall that $k'$ is also a square number.
+
+This equation is of form
+\begin{align*}
+    X^2 - D \cdot Y^2 = 1
+\end{align*}
+with $X = \sqrt{\Delta}$ and $Y = \sqrt{k'}$
+so it's a Pell-Fermat equation. We can use sympy to solve the Pell-Fermat equation and get the flag:
+
+\inputminted{python}{solve_problemeuh.py}
+
+\end{document}
